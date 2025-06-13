@@ -1,0 +1,329 @@
+{
+  "name": "Inventory Management AI System",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nI am a grocerry chatbot. How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -280,
+        -100
+      ],
+      "id": "d2b9cb1f-e5d4-4da1-886c-6bf23e245c2d",
+      "name": "When chat message received",
+      "webhookId": "8f71fcec-34fe-4823-b1c0-1e21fedc1f2f"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        60,
+        -100
+      ],
+      "id": "2aade876-7049-4c67-b071-17d4d3076285",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 3
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        100,
+        100
+      ],
+      "id": "46ad048d-aaed-4c15-9d9a-30370a25868d",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0",
+          "mode": "list",
+          "cachedResultName": "n8n_test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2051737719,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0/edit#gid=2051737719"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Item Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Item_Name', ``, 'string') }}",
+            "Quantity in Stock": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Quantity_in_Stock', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Item Name"
+          ],
+          "schema": [
+            {
+              "id": "Item Name",
+              "displayName": "Item Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Quantity in Stock",
+              "displayName": "Quantity in Stock",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        360,
+        80
+      ],
+      "id": "208b4b22-dd6d-463f-9a34-1e32c137d0c2",
+      "name": "Update Inventory",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DWdW9HSEeYoptvWu",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0",
+          "mode": "list",
+          "cachedResultName": "n8n_test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2051737719,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0/edit#gid=2051737719"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        260,
+        200
+      ],
+      "id": "882169f2-4351-4105-ac59-ac9c8947303a",
+      "name": "Reading Items",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Kzx5m5SSQlqlAwqx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        60
+      ],
+      "id": "0ddae178-e221-4f86-ac6a-c3d0eace4f16",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "q3JVjsBZuIGo53jH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "documentId": {
+          "__rl": true,
+          "value": "1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0",
+          "mode": "list",
+          "cachedResultName": "n8n_test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2051737719,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0/edit#gid=2051737719"
+        },
+        "startIndex": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Row_Number', ``, 'number') }}",
+        "numberToDelete": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Number_of_Rows_to_Delete', ``, 'number') }}"
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        460,
+        0
+      ],
+      "id": "59e6c6e9-ac6f-4fba-a011-4592ae17ab62",
+      "name": "Delete Rows",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DWdW9HSEeYoptvWu",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "documentId": {
+          "__rl": true,
+          "value": "1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0",
+          "mode": "list",
+          "cachedResultName": "n8n_test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2051737719,
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1tddd6EVkZ2vJu-Pjhog6LGoP2XiviX2CxqoI7HwerW0/edit#gid=2051737719"
+        },
+        "toDelete": "columns",
+        "startIndex": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Column', ``, 'string') }}",
+        "numberToDelete": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Number_of_Columns_to_Delete', ``, 'number') }}"
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        500,
+        200
+      ],
+      "id": "1ba0bb4e-1877-4a2a-9e81-8a867991e07c",
+      "name": "Delete Columns",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "DWdW9HSEeYoptvWu",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Inventory": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reading Items": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Rows": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Columns": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1dd473db-a86b-4339-a564-8975e3d8a413",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "43deeaa2d59c20f1d7a0b4039c05c314673610ab1ee964101867b0e11c8b653a"
+  },
+  "id": "Ya12ZPhBO04f8ef3",
+  "tags": []
+}
