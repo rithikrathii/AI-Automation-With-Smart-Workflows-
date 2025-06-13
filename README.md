@@ -15,7 +15,8 @@ A basic AI-powered agent that:
 
   
 ✅ Deployed and tested in action.  
-🎥 [Watch demo] ([https://github.com/AakankshaLanghani/AI-Automation-Projects-with-Smart-Workflows/blob/main/AI-Powered%20Inventory%20Management%20Agent/Smart%20Inventory%20AI%20Chatbot%20using%20n8n%20and%20Gemini%20API.mp4](https://github.com/rithikrathii/AI-Automation-With-Smart-Workflows-/blob/main/AI-Powered%20Inventory%20Management%20Agent/Live%20demo.mp4)]
+🎥 **Watch the Demo:**  
+👉 [Smart Inventory AI Chatbot using n8n and Gemini API](https://github.com/rithikrathii/AI-Automation-With-Smart-Workflows-/blob/main/AI-Powered%20Inventory%20Management%20Agent/Live%20demo.mp4)
 
 
 ---
